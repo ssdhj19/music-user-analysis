@@ -8,7 +8,7 @@ conn = sqlite3.connect('music_analysis.db')
 print("数据库已创建: music_analysis.db")
 
 songs_cols = ['song_id', 'artist_id', 'publish_time', 'song_init_plays', 'language', 'gender']
-songs = pd.read_csv('E:\厦门大学数字经济专硕\就业\项目\音乐平台用户数据分析\数据/mars_tianchi_songs.csv', names=songs_cols, header=None)
+songs = pd.read_csv('数据/mars_tianchi_songs.csv', names=songs_cols, header=None)
 songs['publish_date'] = pd.to_datetime(songs['publish_time'].astype(str), format='%Y%m%d', errors='coerce')
 
 songs.to_sql('songs', conn, if_exists='replace', index=False)
@@ -22,7 +22,7 @@ conn.execute("DROP TABLE IF EXISTS actions")
 chunk_size = 100_000
 total_imported = 0
 
-for i, chunk in enumerate(pd.read_csv('E:\厦门大学数字经济专硕\就业\项目\音乐平台用户数据分析\数据/mars_tianchi_user_actions.csv',
+for i, chunk in enumerate(pd.read_csv('数据/mars_tianchi_user_actions.csv',
     names=actions_cols, header=None, chunksize=chunk_size)):
 
     # 数据清洗（与 Step 1 保持一致）

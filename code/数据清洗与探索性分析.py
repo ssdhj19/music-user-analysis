@@ -7,11 +7,11 @@ print("=" * 60)
 print('数据加载中...')
 # 歌曲元数据
 songs_cols = ['song_id', 'artist_id', 'publish_time', 'song_init_plays', 'language', 'gender']
-songs = pd.read_csv('E:\厦门大学数字经济专硕\就业\项目\音乐平台用户数据分析\数据/mars_tianchi_songs.csv', names=songs_cols, header=None)
+songs = pd.read_csv('数据/mars_tianchi_songs.csv', names=songs_cols, header=None)
 
 # 用户行为数据（1.4GB）
 actions_cols = ['user_id', 'song_id', 'gmt_create', 'action_type', 'ds']
-actions = pd.read_csv('E:\厦门大学数字经济专硕\就业\项目\音乐平台用户数据分析\数据/mars_tianchi_user_actions.csv', names=actions_cols, header=None)
+actions = pd.read_csv('数据/mars_tianchi_user_actions.csv', names=actions_cols, header=None)
 print('加载完毕。')
 
 # 2.歌曲表数据清洗
@@ -28,9 +28,6 @@ print(f"\n发布日期范围: {songs['publish_date'].min()} ~ {songs['publish_da
 print(f"日期解析失败数: {songs['publish_date'].isna().sum()}")
 
 # language 映射【目前未知数字与语种的关系】
-# lang_map = {-1: '未知', 0: '国语', 1: '粤语', 2: '英语', 3: '日语', 4: '韩语', 5: '其他'}
-# songs['language_name'] = songs['language'].map(lang_map)
-# print(f"\n语言分布:\n{songs['language_name'].value_counts()}")
 
 # gender 映射
 gender_map = {3: '组合/乐队', 1: '男', 2: '女', 4:'未知'}
@@ -126,9 +123,3 @@ lang_pop = act_with_meta.groupby('language').size().sort_values(ascending=False)
 print(f"\n各语言歌曲播放次数:")
 for lang, cnt in lang_pop.items():
     print(f"  {lang}: {cnt:,}")
-
-
-
-print("\n" + "=" * 60)
-print("✅ Step 1 数据清洗与 EDA 完成！")
-print("=" * 60)
